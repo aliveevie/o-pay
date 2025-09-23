@@ -1,6 +1,31 @@
 # Enable URL rewriting
 RewriteEngine On
 
+# Fix MIME types for JavaScript modules
+<IfModule mod_mime.c>
+    # JavaScript files
+    AddType application/javascript .js
+    AddType application/javascript .mjs
+    AddType text/javascript .js
+    
+    # CSS files
+    AddType text/css .css
+    
+    # JSON files
+    AddType application/json .json
+    
+    # Web fonts
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+    AddType application/font-woff .woff
+    AddType application/font-woff2 .woff2
+    
+    # Images
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+    AddType image/avif .avif
+</IfModule>
+
 # Handle Angular and React Router
 # If an existing asset or directory is requested go to it as it is
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
@@ -25,7 +50,7 @@ RewriteRule ^ /index.html [L]
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     
     # Content Security Policy
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
 </IfModule>
 
 # Compression
