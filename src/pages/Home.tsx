@@ -42,6 +42,47 @@ const Home = () => {
   const sectionsRef = useRef([]);
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  // Number animation function
+  const animateNumber = (start: number, end: number, duration: number, callback: (value: number) => void) => {
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = start + (end - start) * easeOutQuart;
+      callback(Math.floor(current));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
+  // Fallback animation trigger after component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasAnimated) {
+        console.log('Fallback animation triggered');
+        setHasAnimated(true);
+        animateNumber(0, 2000000, 2000, (value) => {
+          setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
+        });
+        animateNumber(0, 750000000000, 2500, (value) => {
+          setAnimatedNumbers(prev => ({ ...prev, transactionVolume: value }));
+        });
+        animateNumber(0, 50000, 1800, (value) => {
+          setAnimatedNumbers(prev => ({ ...prev, businessPartners: value }));
+        });
+        animateNumber(0, 99.9, 1500, (value) => {
+          setAnimatedNumbers(prev => ({ ...prev, platformUptime: value }));
+        });
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [hasAnimated]);
+
   const slides = [
     {
       id: 1,
@@ -221,32 +262,18 @@ const Home = () => {
     setIsPlaying(!isPlaying);
   };
 
-  // Number animation function
-  const animateNumber = (start: number, end: number, duration: number, callback: (value: number) => void) => {
-    const startTime = performance.now();
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const current = start + (end - start) * easeOutQuart;
-      callback(Math.floor(current));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    requestAnimationFrame(animate);
-  };
-
   // Intersection Observer for scroll animations
   const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry) => {
       const sectionId = entry.target.getAttribute('data-section');
+      console.log('Section observed:', sectionId, 'isIntersecting:', entry.isIntersecting);
+      
       if (entry.isIntersecting) {
         setIsVisible(prev => ({ ...prev, [sectionId]: true }));
         
         // Animate numbers when stats section comes into view
         if (sectionId === 'stats' && !hasAnimated) {
+          console.log('Starting number animations...');
           setHasAnimated(true);
           animateNumber(0, 2000000, 2000, (value) => {
             setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
@@ -270,8 +297,8 @@ const Home = () => {
   // Setup intersection observer
   useEffect(() => {
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
     });
 
     // Observe stats section directly
@@ -285,6 +312,23 @@ const Home = () => {
     });
 
     return () => observer.disconnect();
+  }, [observerCallback]);
+
+  // Additional effect to ensure stats section is observed
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (statsRef.current) {
+        const observer = new IntersectionObserver(observerCallback, {
+          threshold: 0.2,
+          rootMargin: '0px 0px -100px 0px'
+        });
+        observer.observe(statsRef.current);
+        
+        return () => observer.disconnect();
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
   }, [observerCallback]);
 
   // Initialize sections refs
@@ -867,30 +911,6 @@ const Home = () => {
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Debug button - remove in production */}
-          <div className="text-center mb-8">
-            <button 
-              onClick={() => {
-                setHasAnimated(false);
-                animateNumber(0, 2000000, 2000, (value) => {
-                  setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
-                });
-                animateNumber(0, 750000000000, 2500, (value) => {
-                  setAnimatedNumbers(prev => ({ ...prev, transactionVolume: value }));
-                });
-                animateNumber(0, 50000, 1800, (value) => {
-                  setAnimatedNumbers(prev => ({ ...prev, businessPartners: value }));
-                });
-                animateNumber(0, 99.9, 1500, (value) => {
-                  setAnimatedNumbers(prev => ({ ...prev, platformUptime: value }));
-                });
-              }}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Test Animation
-            </button>
-          </div>
-          
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center group">
               <div className="flex items-center justify-center mb-4">
@@ -1174,7 +1194,7 @@ const Home = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300"
+                className="border-2 border-white text-white bg-white/10 backdrop-blur-sm hover:bg-white hover:text-slate-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300"
               >
                 Contact Sales Team
               </Button>
