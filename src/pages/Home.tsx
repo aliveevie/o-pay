@@ -20,10 +20,117 @@ import {
   BarChart3,
   Lock,
   Clock,
-  Award
+  Award,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Pause
 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const slides = [
+    {
+      id: 1,
+      title: "Nigeria's Leading",
+      subtitle: "Fintech Platform",
+      description: "Streamline your financial operations with our comprehensive suite of digital banking, payment processing, and business finance solutions.",
+      background: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
+      badge: "Trusted by 2M+ Nigerians",
+      badgeIcon: Shield,
+      dashboard: {
+        balance: "₦2,456,890",
+        growth: "+24.5%",
+        transactions: "1,247"
+      }
+    },
+    {
+      id: 2,
+      title: "Empowering",
+      subtitle: "African Entrepreneurs",
+      description: "From Lagos to Abuja, we're helping business owners across Nigeria scale their operations with smart financial tools and instant access to capital.",
+      background: "bg-gradient-to-br from-emerald-900 via-teal-800 to-green-900",
+      badge: "Supporting 50K+ Businesses",
+      badgeIcon: Building,
+      dashboard: {
+        balance: "₦8,234,567",
+        growth: "+31.2%",
+        transactions: "3,891"
+      }
+    },
+    {
+      id: 3,
+      title: "Secure &",
+      subtitle: "Reliable Banking",
+      description: "Bank-grade security meets modern convenience. Your money is protected with military-grade encryption and 24/7 monitoring.",
+      background: "bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900",
+      badge: "CBN Licensed & Regulated",
+      badgeIcon: Lock,
+      dashboard: {
+        balance: "₦5,678,234",
+        growth: "+18.7%",
+        transactions: "2,156"
+      }
+    },
+    {
+      id: 4,
+      title: "Instant",
+      subtitle: "Money Transfers",
+      description: "Send money to family, pay bills, and manage your business finances instantly. No delays, no hidden fees, just seamless transactions.",
+      background: "bg-gradient-to-br from-orange-900 via-red-800 to-pink-900",
+      badge: "₦750B+ Processed",
+      badgeIcon: Send,
+      dashboard: {
+        balance: "₦1,234,567",
+        growth: "+42.1%",
+        transactions: "5,432"
+      }
+    },
+    {
+      id: 5,
+      title: "Smart",
+      subtitle: "Financial Analytics",
+      description: "Make informed decisions with real-time insights, spending analytics, and predictive financial modeling tailored for African markets.",
+      background: "bg-gradient-to-br from-cyan-900 via-blue-800 to-indigo-900",
+      badge: "AI-Powered Insights",
+      badgeIcon: BarChart3,
+      dashboard: {
+        balance: "₦9,876,543",
+        growth: "+27.8%",
+        transactions: "4,321"
+      }
+    }
+  ];
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, slides.length]);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   const services = [
     {
       icon: Wallet,
@@ -109,44 +216,38 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+      {/* Hero Slideshow Section */}
+      <section className="relative overflow-hidden">
+        <div className={`absolute inset-0 transition-all duration-1000 ${slides[currentSlide].background}`}>
+          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-6">
                 <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
-                  <Shield className="h-4 w-4 mr-2 text-green-400" />
-                  <span className="text-sm font-medium">Trusted by 2M+ Nigerians</span>
+                  {currentSlide === 0 && <Shield className="h-4 w-4 mr-2 text-green-400" />}
+                  {currentSlide === 1 && <Building className="h-4 w-4 mr-2 text-green-400" />}
+                  {currentSlide === 2 && <Lock className="h-4 w-4 mr-2 text-green-400" />}
+                  {currentSlide === 3 && <Send className="h-4 w-4 mr-2 text-green-400" />}
+                  {currentSlide === 4 && <BarChart3 className="h-4 w-4 mr-2 text-green-400" />}
+                  <span className="text-sm font-medium">{slides[currentSlide].badge}</span>
                 </div>
                 
-                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                  Nigeria's Leading
+                <h1 className="text-4xl lg:text-6xl font-bold leading-tight text-white">
+                  {slides[currentSlide].title}
                   <span className="block bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-                    Fintech Platform
+                    {slides[currentSlide].subtitle}
                   </span>
                 </h1>
                 
                 <p className="text-xl lg:text-2xl text-slate-300 leading-relaxed max-w-2xl">
-                  Streamline your financial operations with our comprehensive suite of 
-                  digital banking, payment processing, and business finance solutions.
+                  {slides[currentSlide].description}
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-6 items-center">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button 
-                    onClick={() => alert("Coming soon! Go-pay app will be available on Google Play Store.")}
-                    className="transition-transform hover:scale-105 hover:opacity-90"
-                  >
-                    <img 
-                      src="/src/assets/app-store-buttons.png" 
-                      alt="Download on Google Play and App Store" 
-                      className="h-14 w-auto"
-                    />
-                  </button>
-                </div>
                 <Button 
                   variant="outline" 
                   size="lg" 
@@ -183,7 +284,7 @@ const Home = () => {
                     </div>
                     <div className="text-right">
                       <p className="text-slate-400 text-sm">Total Balance</p>
-                      <p className="text-2xl font-bold text-white">₦2,456,890</p>
+                      <p className="text-2xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
                     </div>
                   </div>
                   
@@ -193,14 +294,14 @@ const Home = () => {
                         <TrendingUp className="h-4 w-4 text-green-400" />
                         <span className="text-slate-300 text-sm">Monthly Growth</span>
                       </div>
-                      <p className="text-xl font-bold text-white">+24.5%</p>
+                      <p className="text-xl font-bold text-white">{slides[currentSlide].dashboard.growth}</p>
                     </div>
                     <div className="bg-slate-700/50 rounded-xl p-4">
                       <div className="flex items-center space-x-2 mb-2">
                         <Users className="h-4 w-4 text-blue-400" />
                         <span className="text-slate-300 text-sm">Transactions</span>
                       </div>
-                      <p className="text-xl font-bold text-white">1,247</p>
+                      <p className="text-xl font-bold text-white">{slides[currentSlide].dashboard.transactions}</p>
                     </div>
                   </div>
                 </div>
@@ -208,6 +309,50 @@ const Home = () => {
               <div className="absolute -top-4 -left-4 w-32 h-32 bg-green-500/20 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
             </div>
+          </div>
+        </div>
+
+        {/* Slideshow Controls */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="flex items-center space-x-4 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3">
+            {/* Play/Pause Button */}
+            <button
+              onClick={togglePlayPause}
+              className="text-white hover:text-green-400 transition-colors duration-300"
+            >
+              {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+            </button>
+
+            {/* Previous Button */}
+            <button
+              onClick={goToPrevious}
+              className="text-white hover:text-green-400 transition-colors duration-300"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            {/* Slide Indicators */}
+            <div className="flex space-x-2">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'bg-green-400 scale-125' 
+                      : 'bg-white/50 hover:bg-white/80'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Next Button */}
+            <button
+              onClick={goToNext}
+              className="text-white hover:text-green-400 transition-colors duration-300"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </section>
