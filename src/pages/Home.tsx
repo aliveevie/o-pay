@@ -37,70 +37,150 @@ const Home = () => {
       id: 1,
       title: "Nigeria's Leading",
       subtitle: "Fintech Platform",
-      description: "Streamline your financial operations with our comprehensive suite of digital banking, payment processing, and business finance solutions.",
+      description: "Streamline your financial operations with our comprehensive suite of digital banking, payment processing, and business finance solutions. Trusted by over 2 million Nigerians and 50,000+ businesses across Africa.",
       background: "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
+      backgroundImage: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       badge: "Trusted by 2M+ Nigerians",
       badgeIcon: Shield,
+      stats: [
+        { label: "Active Users", value: "2M+" },
+        { label: "Transaction Volume", value: "₦750B+" },
+        { label: "Business Partners", value: "50K+" },
+        { label: "Platform Uptime", value: "99.9%" }
+      ],
       dashboard: {
+        type: "business",
         balance: "₦2,456,890",
         growth: "+24.5%",
-        transactions: "1,247"
+        transactions: "1,247",
+        accountType: "Business Account",
+        color: "from-green-500 to-blue-500",
+        additionalMetrics: {
+          revenue: "₦1.2M",
+          expenses: "₦890K",
+          profit: "₦310K",
+          customers: "2,847"
+        }
       }
     },
     {
       id: 2,
       title: "Empowering",
       subtitle: "African Entrepreneurs",
-      description: "From Lagos to Abuja, we're helping business owners across Nigeria scale their operations with smart financial tools and instant access to capital.",
+      description: "From Lagos to Abuja, we're helping business owners across Nigeria scale their operations with smart financial tools, instant access to capital, and AI-powered business insights. Join thousands of successful entrepreneurs.",
       background: "bg-gradient-to-br from-emerald-900 via-teal-800 to-green-900",
+      backgroundImage: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2126&q=80",
       badge: "Supporting 50K+ Businesses",
       badgeIcon: Building,
+      stats: [
+        { label: "Startups Funded", value: "15K+" },
+        { label: "Capital Deployed", value: "₦45B+" },
+        { label: "Success Rate", value: "94%" },
+        { label: "Avg. Growth", value: "+31%" }
+      ],
       dashboard: {
+        type: "startup",
         balance: "₦8,234,567",
         growth: "+31.2%",
-        transactions: "3,891"
+        transactions: "3,891",
+        accountType: "Startup Account",
+        color: "from-emerald-500 to-teal-500",
+        additionalMetrics: {
+          funding: "₦5.2M",
+          burnRate: "₦180K",
+          runway: "29 months",
+          valuation: "₦45M"
+        }
       }
     },
     {
       id: 3,
-      title: "Secure &",
-      subtitle: "Reliable Banking",
-      description: "Bank-grade security meets modern convenience. Your money is protected with military-grade encryption and 24/7 monitoring.",
+      title: "Bank-Grade",
+      subtitle: "Security & Compliance",
+      description: "Your financial data is protected with military-grade encryption, multi-factor authentication, and 24/7 fraud monitoring. Fully licensed by CBN and compliant with international security standards.",
       background: "bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900",
+      backgroundImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2011&q=80",
       badge: "CBN Licensed & Regulated",
       badgeIcon: Lock,
+      stats: [
+        { label: "Security Score", value: "98.5%" },
+        { label: "Fraud Prevention", value: "99.7%" },
+        { label: "Compliance Rate", value: "100%" },
+        { label: "Audit Pass Rate", value: "100%" }
+      ],
       dashboard: {
+        type: "premium",
         balance: "₦5,678,234",
         growth: "+18.7%",
-        transactions: "2,156"
+        transactions: "2,156",
+        accountType: "Premium Account",
+        color: "from-blue-500 to-purple-500",
+        additionalMetrics: {
+          investments: "₦3.2M",
+          roi: "+18.7%",
+          riskScore: "Low",
+          creditScore: "850"
+        }
       }
     },
     {
       id: 4,
       title: "Instant",
       subtitle: "Money Transfers",
-      description: "Send money to family, pay bills, and manage your business finances instantly. No delays, no hidden fees, just seamless transactions.",
+      description: "Send money to family, pay bills, and manage your business finances instantly across Nigeria and Africa. Zero delays, transparent fees, and real-time transaction tracking for complete peace of mind.",
       background: "bg-gradient-to-br from-orange-900 via-red-800 to-pink-900",
+      backgroundImage: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80",
       badge: "₦750B+ Processed",
       badgeIcon: Send,
+      stats: [
+        { label: "Transfer Speed", value: "< 30s" },
+        { label: "Success Rate", value: "99.8%" },
+        { label: "Countries", value: "15+" },
+        { label: "Daily Volume", value: "₦2.1B" }
+      ],
       dashboard: {
+        type: "personal",
         balance: "₦1,234,567",
         growth: "+42.1%",
-        transactions: "5,432"
+        transactions: "5,432",
+        accountType: "Personal Account",
+        color: "from-orange-500 to-pink-500",
+        additionalMetrics: {
+          sent: "₦890K",
+          received: "₦1.1M",
+          bills: "₦156K",
+          savings: "₦234K"
+        }
       }
     },
     {
       id: 5,
-      title: "Smart",
+      title: "AI-Powered",
       subtitle: "Financial Analytics",
-      description: "Make informed decisions with real-time insights, spending analytics, and predictive financial modeling tailored for African markets.",
+      description: "Make informed decisions with real-time insights, predictive analytics, and personalized financial recommendations powered by advanced AI. Optimize your finances with data-driven strategies tailored for African markets.",
       background: "bg-gradient-to-br from-cyan-900 via-blue-800 to-indigo-900",
+      backgroundImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       badge: "AI-Powered Insights",
       badgeIcon: BarChart3,
+      stats: [
+        { label: "AI Accuracy", value: "96.2%" },
+        { label: "Predictions Made", value: "2.5M+" },
+        { label: "Savings Generated", value: "₦12B+" },
+        { label: "User Satisfaction", value: "98%" }
+      ],
       dashboard: {
+        type: "analytics",
         balance: "₦9,876,543",
         growth: "+27.8%",
-        transactions: "4,321"
+        transactions: "4,321",
+        accountType: "Analytics Dashboard",
+        color: "from-cyan-500 to-indigo-500",
+        additionalMetrics: {
+          predictions: "87% accurate",
+          savings: "₦234K",
+          insights: "156 generated",
+          trends: "12 identified"
+        }
       }
     }
   ];
@@ -217,9 +297,17 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Slideshow Section */}
-      <section className="relative overflow-hidden">
-        <div className={`absolute inset-0 transition-all duration-1000 ${slides[currentSlide].background}`}>
-          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <section className="relative overflow-hidden min-h-screen">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 transition-all duration-1000 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url(${slides[currentSlide].backgroundImage})`
+          }}
+        >
+          <div className={`absolute inset-0 transition-all duration-1000 ${slides[currentSlide].background} opacity-80`}>
+            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+          </div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
@@ -258,8 +346,20 @@ const Home = () => {
                 </Button>
               </div>
 
-              {/* Trust Indicators */}
+              {/* Professional Stats Grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-8">
+                {slides[currentSlide].stats.map((stat, index) => (
+                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+                      <div className="text-xs text-slate-300 font-medium">{stat.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6">
                 {trustIndicators.map((indicator, index) => (
                   <div key={index} className="flex items-center space-x-2 text-slate-300">
                     <indicator.icon className="h-4 w-4 text-green-400" />
@@ -270,55 +370,339 @@ const Home = () => {
             </div>
 
             <div className="relative">
-              <div className="relative z-10 bg-gradient-to-br from-slate-800 to-slate-700 rounded-3xl p-8 shadow-2xl border border-slate-600">
+              {/* Varying Dashboard Designs */}
+              {slides[currentSlide].dashboard.type === "business" && (
+                <div className="relative z-10 bg-gradient-to-br from-slate-800 to-slate-700 rounded-3xl p-8 shadow-2xl border border-slate-600 backdrop-blur-sm">
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold">G</span>
+                        <div className={`w-12 h-12 bg-gradient-to-r ${slides[currentSlide].dashboard.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                          <Building className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white text-lg">Go-pay Business</h3>
+                          <p className="text-slate-400 text-sm">{slides[currentSlide].dashboard.accountType}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-slate-400 text-sm">Total Balance</p>
+                        <p className="text-3xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-xl p-4 border border-green-500/30">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <TrendingUp className="h-4 w-4 text-green-400" />
+                          <span className="text-slate-300 text-sm">Revenue</span>
+                        </div>
+                        <p className="text-xl font-bold text-green-400">{slides[currentSlide].dashboard.additionalMetrics.revenue}</p>
+                        <p className="text-green-300 text-xs">Monthly</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-xl p-4 border border-blue-500/30">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Users className="h-4 w-4 text-blue-400" />
+                          <span className="text-slate-300 text-sm">Customers</span>
+                        </div>
+                        <p className="text-xl font-bold text-blue-400">{slides[currentSlide].dashboard.additionalMetrics.customers}</p>
+                        <p className="text-blue-300 text-xs">Active</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-xl p-4 border border-purple-500/30">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <BarChart3 className="h-4 w-4 text-purple-400" />
+                          <span className="text-slate-300 text-sm">Profit</span>
+                        </div>
+                        <p className="text-xl font-bold text-purple-400">{slides[currentSlide].dashboard.additionalMetrics.profit}</p>
+                        <p className="text-purple-300 text-xs">This Month</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-xl p-4 border border-orange-500/30">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <CreditCard className="h-4 w-4 text-orange-400" />
+                          <span className="text-slate-300 text-sm">Expenses</span>
+                        </div>
+                        <p className="text-xl font-bold text-orange-400">{slides[currentSlide].dashboard.additionalMetrics.expenses}</p>
+                        <p className="text-orange-300 text-xs">Controlled</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {slides[currentSlide].dashboard.type === "startup" && (
+                <div className="relative z-10 bg-gradient-to-br from-emerald-800 to-teal-700 rounded-3xl p-8 shadow-2xl border border-emerald-600 backdrop-blur-sm">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-12 h-12 bg-gradient-to-r ${slides[currentSlide].dashboard.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                          <Zap className="h-6 w-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-white">Go-pay Dashboard</h3>
-                        <p className="text-slate-400 text-sm">Business Account</p>
+                          <h3 className="font-bold text-white text-lg">Go-pay Startup</h3>
+                          <p className="text-slate-300 text-sm">{slides[currentSlide].dashboard.accountType}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-slate-300 text-sm">Available Capital</p>
+                        <p className="text-3xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-emerald-500/30 to-teal-500/30 rounded-xl p-6 border border-emerald-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <TrendingUp className="h-5 w-5 text-emerald-400" />
+                          <span className="text-white font-semibold">Funding Raised</span>
+                        </div>
+                        <p className="text-2xl font-bold text-emerald-400">{slides[currentSlide].dashboard.additionalMetrics.funding}</p>
+                        <p className="text-emerald-200 text-sm mt-1">Series A</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-teal-500/30 to-cyan-500/30 rounded-xl p-6 border border-teal-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <BarChart3 className="h-5 w-5 text-teal-400" />
+                          <span className="text-white font-semibold">Valuation</span>
+                        </div>
+                        <p className="text-2xl font-bold text-teal-400">{slides[currentSlide].dashboard.additionalMetrics.valuation}</p>
+                        <p className="text-teal-200 text-sm mt-1">Current</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-xl p-6 border border-cyan-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <Clock className="h-5 w-5 text-cyan-400" />
+                          <span className="text-white font-semibold">Runway</span>
+                        </div>
+                        <p className="text-2xl font-bold text-cyan-400">{slides[currentSlide].dashboard.additionalMetrics.runway}</p>
+                        <p className="text-cyan-200 text-sm mt-1">Remaining</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-blue-500/30 to-indigo-500/30 rounded-xl p-6 border border-blue-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <Wallet className="h-5 w-5 text-blue-400" />
+                          <span className="text-white font-semibold">Burn Rate</span>
+                        </div>
+                        <p className="text-2xl font-bold text-blue-400">{slides[currentSlide].dashboard.additionalMetrics.burnRate}</p>
+                        <p className="text-blue-200 text-sm mt-1">Monthly</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {slides[currentSlide].dashboard.type === "premium" && (
+                <div className="relative z-10 bg-gradient-to-br from-blue-800 to-purple-700 rounded-3xl p-8 shadow-2xl border border-blue-600 backdrop-blur-sm">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-12 h-12 bg-gradient-to-r ${slides[currentSlide].dashboard.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                          <Award className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white text-lg">Go-pay Premium</h3>
+                          <p className="text-slate-300 text-sm">{slides[currentSlide].dashboard.accountType}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-slate-400 text-sm">Total Balance</p>
-                      <p className="text-2xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
+                        <p className="text-slate-300 text-sm">Investment Portfolio</p>
+                        <p className="text-3xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl p-4 border border-blue-400/30">
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center space-x-2">
+                            <Shield className="h-4 w-4 text-blue-400" />
+                            <span className="text-white font-semibold">Security Score</span>
+                          </div>
+                          <span className="text-blue-400 font-bold">98.5%</span>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-4 border border-purple-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <TrendingUp className="h-4 w-4 text-purple-400" />
+                            <span className="text-slate-300 text-sm">Investments</span>
+                          </div>
+                          <p className="text-xl font-bold text-purple-400">{slides[currentSlide].dashboard.additionalMetrics.investments}</p>
+                          <p className="text-purple-300 text-xs">Portfolio</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-xl p-4 border border-blue-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <Award className="h-4 w-4 text-blue-400" />
+                            <span className="text-slate-300 text-sm">Credit Score</span>
+                          </div>
+                          <p className="text-xl font-bold text-blue-400">{slides[currentSlide].dashboard.additionalMetrics.creditScore}</p>
+                          <p className="text-blue-300 text-xs">Excellent</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <BarChart3 className="h-4 w-4 text-green-400" />
+                            <span className="text-slate-300 text-sm">ROI</span>
+                          </div>
+                          <p className="text-xl font-bold text-green-400">{slides[currentSlide].dashboard.additionalMetrics.roi}</p>
+                          <p className="text-green-300 text-xs">Annual</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <Shield className="h-4 w-4 text-orange-400" />
+                            <span className="text-slate-300 text-sm">Risk Score</span>
+                          </div>
+                          <p className="text-xl font-bold text-orange-400">{slides[currentSlide].dashboard.additionalMetrics.riskScore}</p>
+                          <p className="text-orange-300 text-xs">Conservative</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {slides[currentSlide].dashboard.type === "personal" && (
+                <div className="relative z-10 bg-gradient-to-br from-orange-800 to-pink-700 rounded-3xl p-8 shadow-2xl border border-orange-600 backdrop-blur-sm">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-12 h-12 bg-gradient-to-r ${slides[currentSlide].dashboard.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                          <Smartphone className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white text-lg">Go-pay Personal</h3>
+                          <p className="text-slate-300 text-sm">{slides[currentSlide].dashboard.accountType}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-slate-300 text-sm">Wallet Balance</p>
+                        <p className="text-3xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-slate-700/50 rounded-xl p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <TrendingUp className="h-4 w-4 text-green-400" />
-                        <span className="text-slate-300 text-sm">Monthly Growth</span>
+                      <div className="bg-gradient-to-br from-orange-500/30 to-red-500/30 rounded-xl p-6 border border-orange-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <Send className="h-5 w-5 text-orange-400" />
+                          <span className="text-white font-semibold">Money Sent</span>
+                        </div>
+                        <p className="text-2xl font-bold text-orange-400">{slides[currentSlide].dashboard.additionalMetrics.sent}</p>
+                        <p className="text-orange-200 text-sm mt-1">This month</p>
                       </div>
-                      <p className="text-xl font-bold text-white">{slides[currentSlide].dashboard.growth}</p>
+                      <div className="bg-gradient-to-br from-pink-500/30 to-rose-500/30 rounded-xl p-6 border border-pink-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <Phone className="h-5 w-5 text-pink-400" />
+                          <span className="text-white font-semibold">Bills Paid</span>
+                        </div>
+                        <p className="text-2xl font-bold text-pink-400">{slides[currentSlide].dashboard.additionalMetrics.bills}</p>
+                        <p className="text-pink-200 text-sm mt-1">All paid</p>
+                      </div>
                     </div>
-                    <div className="bg-slate-700/50 rounded-xl p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Users className="h-4 w-4 text-blue-400" />
-                        <span className="text-slate-300 text-sm">Transactions</span>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-green-500/30 to-emerald-500/30 rounded-xl p-6 border border-green-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <Wallet className="h-5 w-5 text-green-400" />
+                          <span className="text-white font-semibold">Money Received</span>
+                        </div>
+                        <p className="text-2xl font-bold text-green-400">{slides[currentSlide].dashboard.additionalMetrics.received}</p>
+                        <p className="text-green-200 text-sm mt-1">This month</p>
                       </div>
-                      <p className="text-xl font-bold text-white">{slides[currentSlide].dashboard.transactions}</p>
+                      <div className="bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-xl p-6 border border-blue-400/50">
+                        <div className="flex items-center space-x-2 mb-3">
+                          <PiggyBank className="h-5 w-5 text-blue-400" />
+                          <span className="text-white font-semibold">Savings</span>
+                        </div>
+                        <p className="text-2xl font-bold text-blue-400">{slides[currentSlide].dashboard.additionalMetrics.savings}</p>
+                        <p className="text-blue-200 text-sm mt-1">Accumulated</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="absolute -top-4 -left-4 w-32 h-32 bg-green-500/20 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
+              )}
+
+              {slides[currentSlide].dashboard.type === "analytics" && (
+                <div className="relative z-10 bg-gradient-to-br from-cyan-800 to-indigo-700 rounded-3xl p-8 shadow-2xl border border-cyan-600 backdrop-blur-sm">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-12 h-12 bg-gradient-to-r ${slides[currentSlide].dashboard.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                          <BarChart3 className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white text-lg">Go-pay Analytics</h3>
+                          <p className="text-slate-300 text-sm">{slides[currentSlide].dashboard.accountType}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-slate-300 text-sm">Total Assets</p>
+                        <p className="text-3xl font-bold text-white">{slides[currentSlide].dashboard.balance}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl p-4 border border-cyan-400/30">
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center space-x-2">
+                            <Globe className="h-4 w-4 text-cyan-400" />
+                            <span className="text-white font-semibold">AI Insights</span>
+                          </div>
+                          <span className="text-cyan-400 font-bold">Active</span>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-xl p-4 border border-indigo-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <TrendingUp className="h-4 w-4 text-indigo-400" />
+                            <span className="text-slate-300 text-sm">Predictions</span>
+                          </div>
+                          <p className="text-xl font-bold text-indigo-400">{slides[currentSlide].dashboard.additionalMetrics.predictions}</p>
+                          <p className="text-indigo-300 text-xs">Accuracy</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl p-4 border border-blue-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <PiggyBank className="h-4 w-4 text-blue-400" />
+                            <span className="text-slate-300 text-sm">Savings</span>
+                          </div>
+                          <p className="text-xl font-bold text-blue-400">{slides[currentSlide].dashboard.additionalMetrics.savings}</p>
+                          <p className="text-blue-300 text-xs">Generated</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-400/30">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <BarChart3 className="h-4 w-4 text-green-400" />
+                            <span className="text-slate-300 text-sm">Insights</span>
+                          </div>
+                          <p className="text-xl font-bold text-green-400">{slides[currentSlide].dashboard.additionalMetrics.insights}</p>
+                          <p className="text-green-300 text-xs">Generated</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-400/30">
+                      <div className="flex items-center space-x-2 mb-2">
+                            <Globe className="h-4 w-4 text-orange-400" />
+                            <span className="text-slate-300 text-sm">Trends</span>
+                          </div>
+                          <p className="text-xl font-bold text-orange-400">{slides[currentSlide].dashboard.additionalMetrics.trends}</p>
+                          <p className="text-orange-300 text-xs">Identified</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Floating Elements */}
+              <div className="absolute -top-4 -left-4 w-32 h-32 bg-green-500/20 rounded-full blur-3xl animate-pulse"></div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+              <div className="absolute top-1/2 -right-8 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl animate-bounce"></div>
             </div>
           </div>
         </div>
 
-        {/* Slideshow Controls */}
+        {/* Enhanced Slideshow Controls */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="flex items-center space-x-4 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3">
+          <div className="flex items-center space-x-6 bg-black/30 backdrop-blur-md rounded-full px-8 py-4 border border-white/20 shadow-2xl">
             {/* Play/Pause Button */}
             <button
               onClick={togglePlayPause}
-              className="text-white hover:text-green-400 transition-colors duration-300"
+              className="text-white hover:text-green-400 transition-all duration-300 hover:scale-110 bg-white/10 rounded-full p-2"
             >
               {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
             </button>
@@ -326,33 +710,45 @@ const Home = () => {
             {/* Previous Button */}
             <button
               onClick={goToPrevious}
-              className="text-white hover:text-green-400 transition-colors duration-300"
+              className="text-white hover:text-green-400 transition-all duration-300 hover:scale-110 bg-white/10 rounded-full p-2"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            {/* Slide Indicators */}
-            <div className="flex space-x-2">
-              {slides.map((_, index) => (
+            {/* Slide Indicators with Labels */}
+            <div className="flex space-x-3">
+              {slides.map((slide, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`flex flex-col items-center space-y-1 transition-all duration-300 ${
                     index === currentSlide 
-                      ? 'bg-green-400 scale-125' 
-                      : 'bg-white/50 hover:bg-white/80'
+                      ? 'text-green-400' 
+                      : 'text-white/60 hover:text-white/90'
                   }`}
-                />
+                >
+                  <div className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                    index === currentSlide 
+                      ? 'bg-green-400 scale-125 shadow-lg shadow-green-400/50' 
+                      : 'bg-white/50 hover:bg-white/80'
+                  }`} />
+                  <span className="text-xs font-medium">{slide.id}</span>
+                </button>
               ))}
-            </div>
+              </div>
 
             {/* Next Button */}
             <button
               onClick={goToNext}
-              className="text-white hover:text-green-400 transition-colors duration-300"
+              className="text-white hover:text-green-400 transition-all duration-300 hover:scale-110 bg-white/10 rounded-full p-2"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
+
+            {/* Slide Counter */}
+            <div className="text-white/80 text-sm font-medium ml-2">
+              {currentSlide + 1} / {slides.length}
+            </div>
           </div>
         </div>
       </section>
