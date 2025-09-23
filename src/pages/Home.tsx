@@ -134,19 +134,23 @@ const Home = () => {
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-6 items-center">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <button 
                     onClick={() => alert("Coming soon! Go-pay app will be available on Google Play Store.")}
-                    className="transition-transform hover:scale-105"
+                    className="transition-transform hover:scale-105 hover:opacity-90"
                   >
-                    <img src="/src/assets/download-buttons.png" alt="Download on Google Play and App Store" className="h-16" />
+                    <img 
+                      src="/src/assets/app-store-buttons.png" 
+                      alt="Download on Google Play and App Store" 
+                      className="h-14 w-auto"
+                    />
                   </button>
                 </div>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white/30 text-white hover:bg-white hover:text-slate-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300"
+                  className="border-2 border-white text-white bg-white/10 backdrop-blur-sm hover:bg-white hover:text-slate-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300"
                 >
                   Learn More
                   <ArrowRight className="ml-2 h-5 w-5" />

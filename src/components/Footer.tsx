@@ -85,20 +85,16 @@ const Footer = () => {
           {/* Download App */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Download App</h3>
-            <div className="space-y-3">
+            <div className="flex flex-col space-y-3">
               <button 
                 onClick={() => alert("Coming soon! Go-pay app will be available on App Store.")}
-                className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors"
+                className="transition-transform hover:scale-105 hover:opacity-90"
               >
-                <Download className="h-4 w-4" />
-                <span className="text-sm">App Store</span>
-              </button>
-              <button 
-                onClick={() => alert("Coming soon! Go-pay app will be available on Google Play Store.")}
-                className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors"
-              >
-                <Download className="h-4 w-4" />
-                <span className="text-sm">Google Play</span>
+                <img 
+                  src="/src/assets/app-store-buttons.png" 
+                  alt="Download on Google Play and App Store" 
+                  className="h-12 w-auto"
+                />
               </button>
             </div>
             
