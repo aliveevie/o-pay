@@ -26,11 +26,20 @@ import {
   Play,
   Pause
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [animatedNumbers, setAnimatedNumbers] = useState({
+    activeUsers: 0,
+    transactionVolume: 0,
+    businessPartners: 0,
+    platformUptime: 0
+  });
+  const [isVisible, setIsVisible] = useState({});
+  const statsRef = useRef(null);
+  const sectionsRef = useRef([]);
 
   const slides = [
     {
@@ -209,6 +218,79 @@ const Home = () => {
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+  };
+
+  // Number animation function
+  const animateNumber = (start: number, end: number, duration: number, callback: (value: number) => void) => {
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = start + (end - start) * easeOutQuart;
+      callback(Math.floor(current));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
+  // Intersection Observer for scroll animations
+  const observerCallback = useCallback((entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      const sectionId = entry.target.getAttribute('data-section');
+      if (entry.isIntersecting) {
+        setIsVisible(prev => ({ ...prev, [sectionId]: true }));
+        
+        // Animate numbers when stats section comes into view
+        if (sectionId === 'stats' && !animatedNumbers.activeUsers) {
+          animateNumber(0, 2000000, 2000, (value) => {
+            setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
+          });
+          animateNumber(0, 750000000000, 2500, (value) => {
+            setAnimatedNumbers(prev => ({ ...prev, transactionVolume: value }));
+          });
+          animateNumber(0, 50000, 1800, (value) => {
+            setAnimatedNumbers(prev => ({ ...prev, businessPartners: value }));
+          });
+          animateNumber(0, 99.9, 1500, (value) => {
+            setAnimatedNumbers(prev => ({ ...prev, platformUptime: value }));
+          });
+        }
+      } else {
+        setIsVisible(prev => ({ ...prev, [sectionId]: false }));
+      }
+    });
+  }, [animatedNumbers.activeUsers]);
+
+  // Setup intersection observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all sections
+    sectionsRef.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, [observerCallback]);
+
+  // Format numbers for display
+  const formatNumber = (num: number, type: string) => {
+    if (type === 'currency') {
+      return `₦${(num / 1000000000).toFixed(0)}B+`;
+    } else if (type === 'percentage') {
+      return `${num.toFixed(1)}%`;
+    } else if (type === 'users') {
+      return `${(num / 1000000).toFixed(0)}M+`;
+    } else {
+      return `${num.toLocaleString()}+`;
+    }
   };
 
   const services = [
@@ -754,30 +836,78 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-slate-50 border-b">
+      <section 
+        ref={(el) => sectionsRef.current[0] = el}
+        data-section="stats"
+        className={`py-16 bg-slate-50 border-b transition-all duration-1000 ${
+          isVisible['stats'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
+            <div className="text-center group">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-slate-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-6 w-6 text-slate-600" />
+                </div>
+              </div>
+              <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
+                {formatNumber(animatedNumbers.activeUsers, 'users')}
+              </div>
+              <div className="text-slate-600 font-medium">Active Users</div>
+            </div>
+            
+            <div className="text-center group">
                 <div className="flex items-center justify-center mb-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-slate-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <stat.icon className="h-6 w-6 text-slate-600" />
+                  <TrendingUp className="h-6 w-6 text-slate-600" />
+                </div>
+              </div>
+              <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
+                {formatNumber(animatedNumbers.transactionVolume, 'currency')}
+              </div>
+              <div className="text-slate-600 font-medium">Transaction Volume</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-slate-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Building className="h-6 w-6 text-slate-600" />
                   </div>
                 </div>
                 <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-slate-600 font-medium">{stat.label}</div>
+                {formatNumber(animatedNumbers.businessPartners, 'partners')}
               </div>
-            ))}
+              <div className="text-slate-600 font-medium">Business Partners</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-slate-100 to-slate-50 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Clock className="h-6 w-6 text-slate-600" />
+                </div>
+              </div>
+              <div className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
+                {formatNumber(animatedNumbers.platformUptime, 'percentage')}
+              </div>
+              <div className="text-slate-600 font-medium">Platform Uptime</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
+      <section 
+        ref={(el) => sectionsRef.current[1] = el}
+        data-section="services"
+        className={`py-20 bg-white transition-all duration-1000 ${
+          isVisible['services'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
+          <div className={`text-center space-y-4 mb-16 transition-all duration-1000 delay-200 ${
+            isVisible['services'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}>
             <h2 className="text-3xl lg:text-5xl font-bold text-slate-900">
               Comprehensive Financial Solutions
             </h2>
@@ -789,7 +919,13 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 rounded-2xl p-8 group">
+              <Card 
+                key={index} 
+                className={`bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 rounded-2xl p-8 group ${
+                  isVisible['services'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
                 <div className="space-y-6">
                   <div className="w-14 h-14 bg-gradient-to-r from-slate-100 to-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <service.icon className={`h-7 w-7 ${service.color}`} />
@@ -810,10 +946,18 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-slate-50">
+      <section 
+        ref={(el) => sectionsRef.current[2] = el}
+        data-section="features"
+        className={`py-20 bg-slate-50 transition-all duration-1000 ${
+          isVisible['features'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
+            <div className={`space-y-8 transition-all duration-1000 delay-200 ${
+              isVisible['features'] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}>
               <div className="space-y-6">
                 <h2 className="text-3xl lg:text-5xl font-bold text-slate-900">
                   Why Leading Businesses Choose Go-pay
@@ -826,7 +970,13 @@ const Home = () => {
 
               <div className="space-y-4">
                 {features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm">
+                  <div 
+                    key={index} 
+                    className={`flex items-center space-x-4 p-4 bg-white rounded-xl shadow-sm transition-all duration-500 ${
+                      isVisible['features'] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-5'
+                    }`}
+                    style={{ transitionDelay: `${index * 100}ms` }}
+                  >
                     <div className="flex-shrink-0">
                       <CheckCircle className="h-6 w-6 text-green-600" />
                     </div>
@@ -841,7 +991,9 @@ const Home = () => {
               </Button>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className={`grid grid-cols-2 gap-6 transition-all duration-1000 delay-400 ${
+              isVisible['features'] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            }`}>
               <div className="space-y-6">
                 <Card className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
                   <div className="text-center space-y-4">
@@ -891,9 +1043,17 @@ const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section 
+        ref={(el) => sectionsRef.current[3] = el}
+        data-section="testimonials"
+        className={`py-20 bg-white transition-all duration-1000 ${
+          isVisible['testimonials'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
+          <div className={`text-center space-y-4 mb-16 transition-all duration-1000 delay-200 ${
+            isVisible['testimonials'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}>
             <h2 className="text-3xl lg:text-5xl font-bold text-slate-900">
               Trusted by Industry Leaders
             </h2>
@@ -904,7 +1064,13 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 rounded-2xl p-8">
+              <Card 
+                key={index} 
+                className={`bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-500 rounded-2xl p-8 ${
+                  isVisible['testimonials'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
                 <div className="space-y-6">
                   <div className="flex space-x-1">
                     {[...Array(testimonial.rating)].map((_, i) => (
@@ -933,9 +1099,17 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <section 
+        ref={(el) => sectionsRef.current[4] = el}
+        data-section="cta"
+        className={`py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white transition-all duration-1000 ${
+          isVisible['cta'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-8 max-w-4xl mx-auto">
+          <div className={`space-y-8 max-w-4xl mx-auto transition-all duration-1000 delay-200 ${
+            isVisible['cta'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}>
             <h2 className="text-3xl lg:text-5xl font-bold">
               Ready to Transform Your Business?
             </h2>
@@ -943,7 +1117,9 @@ const Home = () => {
               Join thousands of businesses that trust Go-pay for their financial operations. 
               Start your journey today and experience the future of digital finance.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center pt-4 transition-all duration-1000 delay-400 ${
+              isVisible['cta'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
               <Button size="lg" className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105">
                 <Download className="mr-2 h-5 w-5" />
                 Get Started Now
