@@ -40,6 +40,7 @@ const Home = () => {
   const [isVisible, setIsVisible] = useState({});
   const statsRef = useRef(null);
   const sectionsRef = useRef([]);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   const slides = [
     {
@@ -245,7 +246,8 @@ const Home = () => {
         setIsVisible(prev => ({ ...prev, [sectionId]: true }));
         
         // Animate numbers when stats section comes into view
-        if (sectionId === 'stats' && !animatedNumbers.activeUsers) {
+        if (sectionId === 'stats' && !hasAnimated) {
+          setHasAnimated(true);
           animateNumber(0, 2000000, 2000, (value) => {
             setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
           });
@@ -263,7 +265,7 @@ const Home = () => {
         setIsVisible(prev => ({ ...prev, [sectionId]: false }));
       }
     });
-  }, [animatedNumbers.activeUsers]);
+  }, [hasAnimated]);
 
   // Setup intersection observer
   useEffect(() => {
@@ -272,13 +274,34 @@ const Home = () => {
       rootMargin: '0px 0px -50px 0px'
     });
 
-    // Observe all sections
+    // Observe stats section directly
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    // Observe all other sections
     sectionsRef.current.forEach((section) => {
       if (section) observer.observe(section);
     });
 
     return () => observer.disconnect();
   }, [observerCallback]);
+
+  // Initialize sections refs
+  useEffect(() => {
+    // This ensures refs are properly set up
+    const updateRefs = () => {
+      const elements = document.querySelectorAll('[data-section]');
+      sectionsRef.current = Array.from(elements);
+    };
+    
+    updateRefs();
+    
+    // Re-run after a short delay to ensure DOM is ready
+    const timeout = setTimeout(updateRefs, 100);
+    
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Format numbers for display
   const formatNumber = (num: number, type: string) => {
@@ -837,13 +860,37 @@ const Home = () => {
 
       {/* Stats Section */}
       <section 
-        ref={(el) => sectionsRef.current[0] = el}
+        ref={statsRef}
         data-section="stats"
         className={`py-16 bg-slate-50 border-b transition-all duration-1000 ${
           isVisible['stats'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Debug button - remove in production */}
+          <div className="text-center mb-8">
+            <button 
+              onClick={() => {
+                setHasAnimated(false);
+                animateNumber(0, 2000000, 2000, (value) => {
+                  setAnimatedNumbers(prev => ({ ...prev, activeUsers: value }));
+                });
+                animateNumber(0, 750000000000, 2500, (value) => {
+                  setAnimatedNumbers(prev => ({ ...prev, transactionVolume: value }));
+                });
+                animateNumber(0, 50000, 1800, (value) => {
+                  setAnimatedNumbers(prev => ({ ...prev, businessPartners: value }));
+                });
+                animateNumber(0, 99.9, 1500, (value) => {
+                  setAnimatedNumbers(prev => ({ ...prev, platformUptime: value }));
+                });
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Test Animation
+            </button>
+          </div>
+          
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center group">
               <div className="flex items-center justify-center mb-4">
