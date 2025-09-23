@@ -86,11 +86,17 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Download App</h3>
             <div className="space-y-3">
-              <button className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors">
+              <button 
+                onClick={() => alert("Coming soon! Go-pay app will be available on App Store.")}
+                className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors"
+              >
                 <Download className="h-4 w-4" />
                 <span className="text-sm">App Store</span>
               </button>
-              <button className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors">
+              <button 
+                onClick={() => alert("Coming soon! Go-pay app will be available on Google Play Store.")}
+                className="w-full bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg flex items-center justify-center space-x-2 transition-colors"
+              >
                 <Download className="h-4 w-4" />
                 <span className="text-sm">Google Play</span>
               </button>
@@ -124,7 +130,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center space-x-2 text-gray-400 text-sm">
               <MapPin className="h-4 w-4" />
-              <span>Lagos, Nigeria</span>
+              <span>Nigeria</span>
             </div>
           </div>
         </div>
