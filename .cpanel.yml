@@ -1,0 +1,29 @@
+---
+# cPanel Deployment Configuration for Go-pay React/Vite Application
+# This file configures automatic deployment to cPanel hosting
+
+deployment:
+  tasks:
+    # Set deployment path to public_html directory
+    - export DEPLOYPATH=/home/$USER/public_html/
+    
+    # Install dependencies and build the application
+    - npm ci --production=false
+    - npm run build
+    
+    # Clean previous deployment (optional - removes old files)
+    - rm -rf $DEPLOYPATH*
+    
+    # Deploy built files from dist directory
+    - /bin/cp -R dist/* $DEPLOYPATH
+    
+    # Ensure .htaccess is deployed for proper routing
+    - /bin/cp public/.htaccess $DEPLOYPATH
+    
+    # Set proper permissions for files and directories
+    - chmod -R 755 $DEPLOYPATH
+    - find $DEPLOYPATH -type f -exec chmod 644 {} \;
+    
+    # Clean up build artifacts (optional)
+    - rm -rf dist/
+    - rm -rf node_modules/
