@@ -13,7 +13,6 @@ const Header = () => {
     { name: 'Services', href: '/services' },
     { name: 'How It Works', href: '/how-it-works' },
     { name: 'Pricing', href: '/pricing' },
-    { name: 'Dashboard', href: '/dashboard' },
     { name: 'Support', href: '/support' },
   ];
 
@@ -22,13 +21,14 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 md:h-24 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-primary to-secondary">
-              <span className="text-lg font-bold text-white">G</span>
-            </div>
-            <span className="text-xl font-bold text-gradient-primary">Go-pay</span>
+          <Link to="/" className="flex items-center group">
+            <img 
+              src="/go-pay-logo.png" 
+              alt="Go-pay Logo" 
+              className="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}

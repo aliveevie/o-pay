@@ -12,6 +12,8 @@ import HowItWorks from "./pages/HowItWorks";
 import Pricing from "./pages/Pricing";
 import Support from "./pages/Support";
 import Dashboard from "./pages/Dashboard";
+import InfographicsDashboard from "./pages/InfographicsDashboard";
+import InfographicsDashboard2 from "./pages/InfographicsDashboard2";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => (
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/support" element={<Support />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/infographic-one" element={<InfographicsDashboard />} />
+              <Route path="/dashboard/infographic-two" element={<InfographicsDashboard2 />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
