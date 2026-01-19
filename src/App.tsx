@@ -11,6 +11,7 @@ import Services from "./pages/Services";
 import HowItWorks from "./pages/HowItWorks";
 import Pricing from "./pages/Pricing";
 import Support from "./pages/Support";
+import BoardOfDirectors from "./pages/BoardOfDirectors";
 import Dashboard from "./pages/Dashboard";
 import InfographicsDashboard from "./pages/InfographicsDashboard";
 import InfographicsDashboard2 from "./pages/InfographicsDashboard2";
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/board-of-directors" element={<BoardOfDirectors />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/infographic-one" element={<InfographicsDashboard />} />
               <Route path="/dashboard/infographic-two" element={<InfographicsDashboard2 />} />

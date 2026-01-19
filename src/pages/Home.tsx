@@ -24,9 +24,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
-  Pause
+  Pause,
+  Building2,
+  UserCheck,
+  Briefcase
 } from 'lucide-react';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -1165,9 +1169,179 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Board of Directors Section */}
       <section 
         ref={(el) => sectionsRef.current[4] = el}
+        data-section="board"
+        className={`py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50 transition-all duration-1000 ${
+          isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center space-y-4 mb-16 transition-all duration-1000 delay-200 ${
+            isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}>
+            <div className="inline-flex items-center px-4 py-2 bg-slate-100 rounded-full">
+              <Building2 className="h-5 w-5 mr-2 text-slate-600" />
+              <span className="text-sm font-medium text-slate-700">Leadership & Governance</span>
+            </div>
+            <h2 className="text-3xl lg:text-5xl font-bold text-slate-900">
+              Board of Directors & Management Team
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Guided by distinguished leaders with decades of combined experience in finance, 
+              technology, and business leadership across Nigeria and Africa.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Featured Board Members */}
+            {[
+              { name: 'Alhaji Bashir Dalhatu (Wazirin Dutse)', role: 'Chairman of the Board', isChairman: true },
+              { name: 'Dr. Ibrahim Ida. (Wazirin Katsina)', role: 'Board Member' },
+              { name: 'Baffajo Beita', role: 'MD/CEO' },
+              { name: 'Hajia Amina Bibi Farouq', role: 'Board Secretary' },
+            ].map((member, index) => {
+              const getInitials = (name: string) => {
+                return name
+                  .split(' ')
+                  .filter(word => word.length > 0 && !word.includes('(') && !word.includes(')'))
+                  .slice(0, 2)
+                  .map(word => word[0])
+                  .join('')
+                  .toUpperCase();
+              };
+
+              const gradients = [
+                'from-blue-500 to-cyan-500',
+                'from-purple-500 to-pink-500',
+                'from-green-500 to-emerald-500',
+                'from-orange-500 to-red-500',
+              ];
+
+              return (
+                <Card 
+                  key={index}
+                  className={`group relative overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 rounded-2xl ${
+                    member.isChairman ? 'ring-2 ring-green-500 ring-offset-2' : ''
+                  } ${
+                    isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <div className="p-6 space-y-4">
+                    <div className="flex justify-center">
+                      <div className={`relative w-16 h-16 rounded-full bg-gradient-to-br ${gradients[index]} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <span className="text-xl font-bold text-white">
+                          {getInitials(member.name)}
+                        </span>
+                        {member.isChairman && (
+                          <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                            <Award className="h-2.5 w-2.5 text-white" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-center space-y-2">
+                      <h3 className={`font-bold text-slate-900 text-sm leading-tight ${
+                        member.isChairman ? 'text-green-700' : ''
+                      }`}>
+                        {member.name}
+                      </h3>
+                      <p className="text-xs text-slate-600 font-medium">
+                        {member.role}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Management Team Preview */}
+          <div className="mb-12">
+            <div className={`text-center mb-8 transition-all duration-1000 delay-300 ${
+              isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+            }`}>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Executive Leadership</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {[
+                { name: 'Baffajo Beita', role: 'MD/CEO' },
+                { name: 'Engr. Bello Ahmed Roni', role: 'Executive Director' },
+                { name: 'Hajia Amina Bibi Farouk', role: 'Company Secretary' },
+              ].map((member, index) => {
+                const getInitials = (name: string) => {
+                  return name
+                    .split(' ')
+                    .filter(word => word.length > 0)
+                    .slice(0, 2)
+                    .map(word => word[0])
+                    .join('')
+                    .toUpperCase();
+                };
+
+                const gradients = [
+                  'from-green-500 to-emerald-500',
+                  'from-blue-500 to-indigo-500',
+                  'from-purple-500 to-pink-500',
+                ];
+
+                return (
+                  <Card 
+                    key={index}
+                    className={`group relative overflow-hidden border-2 border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-2xl bg-gradient-to-br from-white to-slate-50 ${
+                      isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    }`}
+                    style={{ transitionDelay: `${(index + 4) * 100}ms` }}
+                  >
+                    <div className="p-6 space-y-4">
+                      <div className="flex justify-center">
+                        <div className={`relative w-20 h-20 rounded-full bg-gradient-to-br ${gradients[index]} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 ring-4 ring-white`}>
+                          <span className="text-2xl font-bold text-white">
+                            {getInitials(member.name)}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-center space-y-2">
+                        <h3 className="font-bold text-slate-900 text-base">
+                          {member.name}
+                        </h3>
+                        <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
+                          <Briefcase className="h-3 w-3 mr-1 text-white" />
+                          <span className="text-xs font-semibold text-white">
+                            {member.role}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* View All Button */}
+          <div className={`text-center transition-all duration-1000 delay-500 ${
+            isVisible['board'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
+          }`}>
+            <Link to="/board-of-directors">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105"
+              >
+                <Users className="mr-2 h-5 w-5" />
+                View All Board Members
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section 
+        ref={(el) => sectionsRef.current[5] = el}
         data-section="cta"
         className={`py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white transition-all duration-1000 ${
           isVisible['cta'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
