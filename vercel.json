@@ -1,0 +1,30 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/cpanel",
+      "destination": "https://cpanel.go-pay.com.ng/",
+      "permanent": true
+    },
+    {
+      "source": "/cpanel/:path*",
+      "destination": "https://cpanel.go-pay.com.ng/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/webmail",
+      "destination": "https://webmail.go-pay.com.ng/",
+      "permanent": true
+    },
+    {
+      "source": "/webmail/:path*",
+      "destination": "https://webmail.go-pay.com.ng/:path*",
+      "permanent": true
+    }
+  ]
+}
